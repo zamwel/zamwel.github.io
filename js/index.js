@@ -177,7 +177,7 @@ function setSearch() {
 
                     elements.innerHTML = html;
                 } else {
-                    alert('No result was turned out from your search')
+                    alert('No result was turned out from your search') 
                 }
 
             }
