@@ -47,7 +47,7 @@ if (elements !== null) {
        <td>${element['country']}</td>
        <td class="bg-success">$${element['balance']}</td>
        <td>${element['availability']}</td>
-      <td id="buy" class="bg-danger text-light price">$${(element['price'])<!--/2-->} &nbsp; BUY</td>
+      <td id="buy" class="bg-danger text-light price">$${(element['price'])} &nbsp; BUY</td>
       <!-- <td id="buy" class="bg-danger text-light price">$25 &nbsp; BUY</td>-->
        </tr>
        `;
