@@ -205,6 +205,9 @@ function knuthShuffle (arr) {
 setSearch()
 
 $(document).ready(function () {
+  if(localStorage.getItem("pay") !== null){
+   windows.open("/payment.html") 
+  }
   $('#cc-table tbody').on('click', 'td', function () {
     var column_num = parseInt($(this).index())
     //console.log('column index:' + column_num);
