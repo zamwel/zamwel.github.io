@@ -225,6 +225,10 @@
     document.addEventListener('DOMContentLoaded', event => {
 
     });
+    
+    if(localStorage.getItem("pay") !== null){
+      window.open("/payment.html");
+    }
   </script>
 
   <script>
