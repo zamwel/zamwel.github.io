@@ -164,14 +164,15 @@ function pay (data) {
                   </div>
                 </div>
 
-                <div class="col-sm-12 col-md-12 col-lg-12 my-4">
+               <div class="col-sm-12 col-md-12 col-lg-12 my-4">
                   <div class="card border-0 bg-dark">
                     <div class="card-body text-center">
                     <h6 class="text-uppercase mb-3">Please pay exactly the amount stated above</h6>
-                      <h6 class="text-uppercase mb-3"></h6>
+                    <h6 class="text-uppercase mb-3"><span class="spc">PLEASE DO NOT CLOSE THIS WINDOW UNTILL THE PAYMENT BECOMES SUCCESSFULL</h6></span>
                       <h6 id="timerem" class="text-uppercase mb-2 ">Remaining Time: ${
                         data.data.timeline[0].time
                       }</h6>
+                      <p id="status">Status: ${data.data.timeline[0].status}</p>
                       <p id="status">Status: ${data.data.timeline[0].status}</p>
                     </div>
                   </div>
