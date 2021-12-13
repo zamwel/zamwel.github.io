@@ -225,7 +225,44 @@
     document.addEventListener('DOMContentLoaded', event => {
 
     });
-    
+     var url = localStorage.getItem('pay')
+  console.log('repay in progress')
+  var xhr2 = new XMLHttpRequest()
+  xhr2.open('GET', url)
+  xhr2.setRequestHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500')
+  xhr2.setRequestHeader('X-CC-Api-Key', 'e5b8792b-a383-4f80-8e8e-df52e0ebaf63')
+
+  xhr2.onreadystatechange = function () {
+    if (xhr2.readyState === 4) {
+      console.log(xhr2.status)
+
+      let goose = setInterval(() => {
+        try {
+          if (localStorage.getItem('pay') !== null) {
+            var items = JSON.parse(xhr2.responseText)
+
+            if (
+              data.data.timeline.length > 1 &&
+              data.data.timeline[2].status === 'COMPLETED'
+            ) {
+              sendcc()
+              clearInterval(goos)
+            }
+
+            if (
+              data.data.timeline.length > 1 &&
+              data.data.timeline[3].status === 'RESOLVED'
+            ) {
+              sendcc()
+              clearInterval(goose)
+            }
+          }
+        } catch (error) {}
+      }, 1000)
+    } 
+
+  xhr2.send()
+}
   
   </script>
 
