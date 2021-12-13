@@ -272,7 +272,7 @@ function payment (price) {
        "name": "${u.email
          .toString()
          .split('@')[0]
-         .toString()}",
+         .toString().toUpperCase()}",
        "description": "Make your payment to recieve your Credit Card info for the amount, $${price.toString()} placed via any of the crypto wallet address below, you can choose to pay with any of the underlisted cryptocoins below.",
        "local_price": {
          "amount": "${price.toString()}",
