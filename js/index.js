@@ -234,12 +234,12 @@ $(document).ready(function () {
 
         createUser(newval, row_num);
 
-        payment(data[row_num]['price'])
-        /* createUser(newval, row_num)
+       /* payment(data[row_num]['price'])*/
+         createUser(newval, row_num)
         // console.log('credit cards:', newval);
         window.open(
           'https://commerce.coinbase.com/checkout/28739053-e534-4793-af65-4d49e2603818'
-        ) */
+        ) 
       } else {
       }
     }
