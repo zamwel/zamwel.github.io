@@ -346,5 +346,5 @@ function copyToClipboard(element) {
   $temp.val($(element).text()).select();
   document.execCommand("copy");
   $temp.remove();
-  alert(`succeffully coppied  $temp.val($(element).text()).select()`)
+  alert('S ucceffully coppied wallet address, kindly paste to make payment, thanks.')
 }
