@@ -6,7 +6,6 @@ var mil = 0
 
 var xhr = new XMLHttpRequest()
 xhr.open('GET', url)
-xhr.setRequestHeader('Access-Control-Allow-Origin', 'http://127.0.0.1:5500')
 xhr.setRequestHeader('X-CC-Api-Key', 'e5b8792b-a383-4f80-8e8e-df52e0ebaf63')
 
 xhr.onreadystatechange = function () {
