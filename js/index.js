@@ -267,10 +267,7 @@ function payment (price) {
   }
 
   var data = `{
-       "name": "${u.email
-         .toString()
-         .split('@')[0]
-         .toString().toUpperCase()}",
+       "name": "UNICC TOOLS",
        "description": "Make your payment to recieve your Credit Card info for the amount, $${price.toString()} placed via any of the crypto wallet address below, you can choose to pay with any of the underlisted cryptocoins below.",
        "local_price": {
          "amount": "${price.toString()}",
