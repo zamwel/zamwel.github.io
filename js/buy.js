@@ -98,20 +98,22 @@ $(document).ready(function () {
 })
 
 function bincheker (bin) {
-  var html = ''
-  var url = 'https://bin-checker.net/api/'+bin
   var xhr = new XMLHttpRequest()
-  xhr.open('GET', url)
-  
 
+  xhr.addEventListener('readystatechange', function () {
+    if (this.readyState === 4) {
+      console.log(this.responseText)
+    }
+  })
 
+  xhr.open('GET', 'https://bin-checker.net/api/376659')
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4) {
-       var scheme = JSON.parse(xhr.responseText).scheme
+      var scheme = JSON.parse(xhr.responseText).scheme
       var type = JSON.parse(xhr.responseText).type
       var level = JSON.parse(xhr.responseText).level
-      var country = JSON.parse(xhr.responseText).country 
-      var bank = JSON.parse(xhr.responseText).bank 
+      var country = JSON.parse(xhr.responseText).country
+      var bank = JSON.parse(xhr.responseText).bank
       console.log(xhr.responseText)
       document.querySelector('.lookup-head').innerHTML = `  <div class="top-bin">
                         <div>
