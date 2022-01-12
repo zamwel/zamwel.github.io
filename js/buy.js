@@ -62,7 +62,7 @@ $(document).ready(function () {
       }
     )
   })
-  $(document).on('click', '#data-table td:nth-child(6)', function () {
+  $(document).on('click', '#data-table td:nth-child(4)', function () {
     //console.log(data[index].price)
 
     if (localStorage.getItem('login') === null || localStorage.getItem('login') === 'false') {
