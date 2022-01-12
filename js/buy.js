@@ -28,6 +28,12 @@ $(document).ready(function () {
         }
       },
       {
+        data: 'price',
+        render: function (data, type, row) {
+          return '<div id="buy" class="buy-now">BUY $' + data + '</div>'
+        }
+      },
+      {
         data: 'country',
         render: function (data, type, row) {
           return (
