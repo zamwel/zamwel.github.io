@@ -31,7 +31,7 @@ $(document).ready(() => {
       .then(value => {
         historymaker(value.user.uid, `You signed in to your account at ${Date()}`)
         stopload()
-        location.replace('/index.html')
+        location.replace('/index')
         getuserdetials(email)
         PopupMessageModel(
           'Signin Success',
@@ -64,7 +64,7 @@ $(document).ready(() => {
         })
         .catch(err => {
           stopload()
-          PopupMessageModel('Sign up Error', err, '#b60b0b', ()=>{ location.replace('/index.html')})
+          PopupMessageModel('Sign up Error', err, '#b60b0b', ()=>{ location.replace('/index')})
         })
     }
   })
@@ -94,7 +94,7 @@ function adduser (email, uid, name, password) {
       PopupMessageModel(
         'Signin Success',
         'You have successfully signed in as ' + name,
-        '#009e1a', ()=>{location.replace('/index.html')}
+        '#009e1a', ()=>{location.replace('/index')}
       )
       getuserdetials(email)
      

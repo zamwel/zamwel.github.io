@@ -295,7 +295,7 @@ function signout () {
   auth.signOut().then(() => {
     stopload()
     removeuserdetials()
-    location.replace('/auth.html')
+    location.replace('/auth')
   })
 }
 
@@ -315,7 +315,7 @@ function logout () {
 
 function signinuser () {
   hidepopup
-  location.replace('/auth.html')
+  location.replace('/auth')
 }
 
 function makePurchase (bal, item) {
