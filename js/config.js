@@ -63,7 +63,7 @@ function removeelements () {
     }
   }else{
     setInterval(()=>{
-    document.querySelector('.acc').classList.add('hide-element')
+    //document.querySelector('.acc').classList.add('hide-element')
     })
   }
 }
