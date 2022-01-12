@@ -16,7 +16,7 @@ $(document).ready(function () {
         }
       },
 
-      {
+          {
         data: 'balance',
         render: function (data, type, row) {
           //console.log('new balance:', data)
@@ -27,15 +27,13 @@ $(document).ready(function () {
           )
         }
       },
-      { data: 'country', render: function (data, type, row) {
-        return data+'Also inlcude Fullname, cvv/cvv2, zipcode, state, city, phone, SSN, etc'
-      }},
-      { data: 'country' },
       {
-        data: 'price',
+        data: 'country',
         render: function (data, type, row) {
-          
-          return '<div id="buy" class="buy-now">BUY $' + data + '</div>'
+          return (
+            data +
+            ' - <span class="card-bin">Also inlcude Fullname, cvv/cvv2, zipcode, state, city, phone, SSN, etc </span>'
+          )
         }
       }
     ]
