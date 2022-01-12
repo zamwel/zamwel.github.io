@@ -62,7 +62,7 @@ $(document).ready(function () {
   $(document).on('click', '#data-table td:nth-child(6)', function () {
     //console.log(data[index].price)
 
-    if (!signedin) {
+   if (localStorage.getItem('login') === null || localStorage.getItem('login') === 'false') {
       PopupConfirmModel(
         'USER NOT LOGGED IN',
         'Please you are required to signin before you can make purchase',
