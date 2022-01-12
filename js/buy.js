@@ -16,15 +16,20 @@ $(document).ready(function () {
         }
       },
 
-      { data: 'cvv' },
       {
         data: 'balance',
         render: function (data, type, row) {
-          
           //console.log('new balance:', data)
-          return '<span id="card" class="card-bin">$' + (data+genstr(1)) + '</span>'
+          return (
+            '<span id="card" class="card-bin">$' +
+            (data + genstr(1)) +
+            '</span>'
+          )
         }
       },
+      { data: 'country', render: function (data, type, row) {
+        return data+'Also inlcude Fullname, cvv/cvv2, zipcode, state, city, phone, SSN, etc'
+      }},
       { data: 'country' },
       {
         data: 'price',
