@@ -90,7 +90,7 @@ function adduser (email, uid, name, password) {
     })
     .then(val => {
       stopload()
-      historymaker(val.user.uid, `You created an account with email: ${email}, name: ${name} at ${Date()}`)
+      historymaker(auth.user.uid, `You created an account with email: ${email}, name: ${name} at ${Date()}`)
       PopupMessageModel(
         'Signin Success',
         'You have successfully signed in as ' + name,
