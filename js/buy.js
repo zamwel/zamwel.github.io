@@ -35,12 +35,6 @@ $(document).ready(function () {
       },
       {
         data: 'country',
-        render: function (data, type, row) {
-          return (
-            data +
-            ' - <span class="card-bin">Also inlcude Fullname, cvv/cvv2, zipcode, state, city, phone, SSN, etc </span>'
-          )
-        }
       }
     ]
   })
@@ -81,7 +75,7 @@ $(document).ready(function () {
       amt = data[index].price
       PopupConfirmModel(
         'BUY NOW',
-        'Are you sure you want to purchase this item' +
+        'This card consist of Fullname, CVV/CVV2 Sate, City, phone number, SSN, etc.\n Are you sure you want to purchase this item' +
           $('.top-products').val() +
           ' for $' +
           data[index].price +
