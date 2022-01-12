@@ -29,103 +29,7 @@ var user,
   item,
   topup = false,
   signedin = false
-var q = {
-  data: {
-    addresses: {
-      ethereum: '0x61a9e9515c94bb893adccce1eb5d1dd7d7e4a626',
-      dai: '0x61a9e9515c94bb893adccce1eb5d1dd7d7e4a626',
-      bitcoincash: 'qqwda3c42khq3hzt0w72zjv8fp9qfcehevwscj56ec',
-      dogecoin: 'D7XMerR115omPBT92mP5tysPYNbxJQaU8J',
-      litecoin: 'MD9HGeexe9HSxZgTGasPzTbirXo26DJ7kq',
-      bitcoin: '3FaUMrjHvqzApne3m1ZLZXBzYr4auvRmS3'
-    },
-    cancel_url: 'https://charge/canceled/page',
-    code: '5KDPD74A',
-    created_at: '2022-01-07T14:45:07Z',
-    description: 'Mastering the Transition to the Information Age',
-    exchange_rates: {
-      'ETH-USD': '3218.235',
-      'BTC-USD': '41946.365',
-      'LTC-USD': '132.86',
-      'DOGE-USD': '0.15325',
-      'BCH-USD': '389.745',
-      'DAI-USD': '1.000007'
-    },
-    expires_at: '2022-01-07T15:45:07Z',
-    fees_settled: true,
-    hosted_url: 'https://commerce.coinbase.com/charges/5KDPD74A',
-    id: '9f7c8e54-f465-42d6-b437-01c111f950cf',
-    local_exchange_rates: {
-      'ETH-USD': '3218.235',
-      'BTC-USD': '41946.365',
-      'LTC-USD': '132.86',
-      'DOGE-USD': '0.15325',
-      'BCH-USD': '389.745',
-      'DAI-USD': '1.000007'
-    },
-    metadata: {
-      customer_id: 'id_1005',
-      customer_name: 'Satoshi Nakamoto'
-    },
-    name: 'The Sovereign Individual',
-    organization_name: 'AppDevLap',
-    payment_threshold: {
-      overpayment_absolute_threshold: {
-        amount: '5.00',
-        currency: 'USD'
-      },
-      overpayment_relative_threshold: '0.005',
-      underpayment_absolute_threshold: {
-        amount: '5.00',
-        currency: 'USD'
-      },
-      underpayment_relative_threshold: '0.005'
-    },
-    payments: [],
-    pricing: {
-      local: {
-        amount: '100.00',
-        currency: 'USD'
-      },
-      ethereum: {
-        amount: '0.031073000',
-        currency: 'ETH'
-      },
-      dai: {
-        amount: '99.999300004899965700',
-        currency: 'DAI'
-      },
-      bitcoincash: {
-        amount: '0.25657802',
-        currency: 'BCH'
-      },
-      dogecoin: {
-        amount: '652.52854810',
-        currency: 'DOGE'
-      },
-      litecoin: {
-        amount: '0.75267199',
-        currency: 'LTC'
-      },
-      bitcoin: {
-        amount: '0.00238400',
-        currency: 'BTC'
-      }
-    },
-    pricing_type: 'fixed_price',
-    pwcb_only: false,
-    redirect_url: 'https://charge/completed/page',
-    resource: 'charge',
-    support_email: 'appdevlap@gmail.com',
-    timeline: [
-      {
-        status: 'NEW',
-        time: '2022-01-07T14:45:07Z'
-      }
-    ],
-    utxo: false
-  }
-}
+
 auth.onAuthStateChanged(user => {
   authtrack(user)
 })
@@ -186,6 +90,9 @@ $(document).ready(() => {
   // var btn = document.getElementById('myBtn')
 
   //   PopupConfirmModel("Title Text", "Body text too goes in here...", cc)
+  if(document.querySelector('.year') === null){
+   document.querySelector('.year').innerHTML = new Date().getFullYear() 
+  }
  
 })
 function PopupMessageModel (title, msg, color, callback) {
@@ -1064,7 +971,7 @@ function SniffPaymentStatus (code) {
     xhr.send(data)
   }, 10000)
 }
-document.querySelector('.year').innerHTML = new Date().getFullYear()
+
 
 $('.telegram').click(() => {
   window.open('https://t.me/betwayx10')
