@@ -90,7 +90,7 @@ $(document).ready(() => {
   // var btn = document.getElementById('myBtn')
 
   //   PopupConfirmModel("Title Text", "Body text too goes in here...", cc)
-  if(document.querySelector('.year') === null){
+  if(document.querySelector('.year') !== null){
    document.querySelector('.year').innerHTML = new Date().getFullYear() 
   }
  
