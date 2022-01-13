@@ -232,6 +232,10 @@ function makePurchase (bal, item) {
   var uid = localStorage.getItem('uid')
 
   if (topup) {
+       historymaker(
+      uid,
+      `Account fund initiated with order ${item[2]} at ${item[3]} waiting for payment to detect`
+    )
     db.collection('unicctoolsuserdetails')
       .doc(email)
       .update({ balance: bal + parseInt(balance) })
@@ -272,7 +276,7 @@ function makePurchase (bal, item) {
       .then(function (val) {
         historymaker(
           uid,
-          `Successfull purchase a(an) ${item[0]} for $${amt} with order# ${item[2]} at ${item[3]}`
+          `Successfully purchased a(an) ${item[0]} for $${amt} with order# ${item[2]} at ${item[3]}`
         )
         db.collection('unicctoolsuserdetails')
           .doc(email)
@@ -280,7 +284,7 @@ function makePurchase (bal, item) {
           .then(function (val) {
             PopupMessageModel(
               'SUCCESSFULL PURCHASE',
-              'You have successfully purchase item of order ' +
+              'You have successfully purchased item of order ' +
                 item[2] +
                 '. Check your account pannel for your purchase details.',
               '#009e1a',
@@ -953,7 +957,7 @@ function SniffPaymentStatus (code) {
           }
           if (sniffedlen === 1) {
             //new payment detected
-            $('#PaymentModal .process').text('Payment Detected!')
+            $('#PaymentModal .process').text('Payment Initiated!')
             $('#PaymentModal .process').css('color', '#1d0d0d')
             return
           }
