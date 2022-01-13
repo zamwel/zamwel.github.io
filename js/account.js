@@ -91,7 +91,7 @@ function loadhistorymaker () {
         ht += li
       })
         if(ht.includes("undefined"){
-            document.querySelector(".active-history").innerHTML = ht;.replace("undefined","")
+            document.querySelector(".active-history").innerHTML = ht.replace("undefined","");
         }
     document.querySelector(".active-history").innerHTML = ht;
     })
