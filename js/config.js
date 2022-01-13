@@ -882,7 +882,7 @@ function paywithDOG (crypto) {
 function SniffPaymentStatus (code) {
   $('#PaymentModal .process').text('Initiate a Payment now!')
   $('#PaymentModal .process').css('color', '#b60b0b')
-  setInterval(() => {
+    let stop =  setInterval(() => {
     var url = 'https://api.commerce.coinbase.com/charges/' + code
     var xhr = new XMLHttpRequest()
     xhr.open('GET', url)
@@ -921,6 +921,7 @@ function SniffPaymentStatus (code) {
               localStorage.getItem('uid'),
               `Successfully paied an amount of ${sniffed.pricing.local.amount} into your account.`
             )
+            clearInterval(stop)
             PopupMessageModel(
               'Successful Payment',
               'You have successfully completed the payment process.',
@@ -942,6 +943,7 @@ function SniffPaymentStatus (code) {
               .toLowerCase()
               .trim() === 'underpaid'
           ) {
+            clearInterval(stop)
             PopupMessageModel(
               'Payment Warning',
               `Your payment is unresolved meaning you paid less than the specified amount. Check the remaining balance $(${sniffed
