@@ -90,9 +90,9 @@ function loadhistorymaker () {
         li = `<li>${e.doc.data().data}</li>`
         ht += li
       })
-        if(ht.includes("undefined")){
+        /*if(ht.includes("undefined")){
             document.querySelector(".active-history").innerHTML = ht.replace("undefined","");
-        }
+        }*/
     document.querySelector(".active-history").innerHTML = ht;
     })
   
