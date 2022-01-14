@@ -39,7 +39,6 @@ $(document).ready(function () {
           return '<div id="card" class="card-bin">' + data + '</div>'
         }
       },
-      }
     ]
   })
 
