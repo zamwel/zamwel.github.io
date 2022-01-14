@@ -83,7 +83,7 @@ function loadhistorymaker () {
   var uid = localStorage.getItem('uid')
   db.collection('unicctoolsuserhistory')
     .doc(uid)
-    .collection('history')
+    .collection('history').orderBy('data', 'desc').limit(10)
     .get()
     .then(v => {
       v.docChanges().forEach(e=>{
