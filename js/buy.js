@@ -43,7 +43,7 @@ $(document).ready(function () {
   })
 
   //sort to randowm rows
- 
+ //some command here
  
 
   $('#data-table tbody').on('click', 'tr', function () {
