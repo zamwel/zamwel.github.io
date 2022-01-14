@@ -12,7 +12,7 @@ $(document).ready(function () {
       {
         data: 'card',
         render: function (data, type, row) {
-          return '<span id="card"  class="card-bin">' + data + '</span>'
+          return '<span id="card"  class="card-bin">' + data + 'XXXXXXXXXX</span>'
         }
       },
 
