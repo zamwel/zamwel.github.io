@@ -34,7 +34,11 @@ $(document).ready(function () {
         }
       },
       {
-        data: 'country',
+        data: 'country',,
+        render: function (data, type, row) {
+          return '<div id="card" class="card-bin">BUY $' + data + '</div>'
+        }
+      },
       }
     ]
   })
