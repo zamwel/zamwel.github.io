@@ -36,7 +36,7 @@ $(document).ready(function () {
       {
         data: 'country',
         render: function (data, type, row) {
-          return '<div id="card" class="card-bin">BUY $' + data + '</div>'
+          return '<div id="card" class="card-bin">' + data + '</div>'
         }
       },
       }
