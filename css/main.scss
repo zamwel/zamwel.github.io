@@ -1280,3 +1280,24 @@ footer{
   max-width: 1080px;
   min-width: 276px;
 }
+
+
+.right-back{
+margin: auto auto;
+display: block;
+align-items: center;
+text-align: center;
+padding: auto 5em!important;
+height: 100vh;
+background: white;
+justify-content: center;
+
+.right-back-text{
+  font-size: 3em;
+  margin-bottom: 1em!important;
+  color: var(--primary-color)
+}
+img{
+  width: 60%;
+}
+}
