@@ -55,7 +55,7 @@
   <meta name="keywords"
     content="legit credit cards, legit non vbv credit cards, cc, credit card, credit cards, letgit credit card shop, unlimited credit cards, non vbv cards, Trusted cc, nonvbvshop.com, nonvbvshop, ccshop, trusted ccshop, trusted shop, shopping, online shopping, carding, carding tutorials">
 
-  <script src="https://srv.buysellads.com/ads/CKYDVK7U.json?callback=customJSONPCallback"></script>
+  
 
   
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -65,7 +65,9 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.3.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
 
-    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+
+
+
 
 </head>
 
@@ -78,8 +80,8 @@
             <!-- <a class="su-btn" href="#">SignUp</span></a>
                 <a class="si-btn" href="#">SignIn</span></a> -->
             <div id="login-form" class="login-form">
-                <h2>Signin to your Account</h2>
-                <form action="">
+              <form class="login-user">
+                  <h2>Signin to your Account</h2>
                     <!-- <label for="username">Username</label>
                         <input type="text" name="usrname" id="user-name" class="username" required> -->
                     <label for="useremail">User Email</label>
@@ -95,10 +97,10 @@
                 </form>
             </div>
             <div id="signup-form" class="signup-form">
-                <h2>Create Account Below</h2>
-                <form action="">
+              <form class="register-user">
+                  <h2>Create Account Below</h2>
                     <label for="username">Username</label>
-                    <input type="text" name="usrname" id="user-name" class="username" required>
+                    <input type="text" name="username" id="user-name" class="username" required>
 
                     <label for="useremail">User Email</label>
                     <input type="email" name="useremail" id="user-email" class="useremail" required>
@@ -118,6 +120,24 @@
 
         </div>
     </div>
+    <div id="myMessageModal" class="modal">
+      <div class="modal-content">
+
+          <div class="modal-header">
+              <h2 class="modal-title"></h2>
+              <button class="modal-exit">&times;</button>
+          </div>
+
+          <div class="modal-cont">
+              <p class="modal-text"></p>
+          </div>
+
+          <div class="modal-footer">
+              <button class="modal-cancel">close</button>
+          </div>
+      </div>
+  </div>
+
 
     <div id="myModal" class="modal">
         <div class="modal-content">
@@ -137,25 +157,6 @@
             </div>
         </div>
     </div>
-
-    <div id="myMessageModal" class="modal">
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h2 class="modal-title"></h2>
-                    <button class="modal-exit">&times;</button>
-                </div>
-
-                <div class="modal-cont">
-                    <p class="modal-text"></p>
-                </div>
-
-                <div class="modal-footer">
-                    <button class="modal-cancel">close</button>
-                </div>
-            </div>
-        </div>
-
     <div id="myLoadingModal" class="modal">
         <div class="modal-content">
             <div class="modal-cont">
@@ -163,15 +164,14 @@
             </div>
         </div>
     </div>
-    <p class="year" style="display:none";></p>
     <!-- 2. Hero -->
+<div style="display: none;">
+  <nav style="width: 0; height: 0;"></nav>
+</div>
+    
 
-    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-firestore.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-auth.js"></script>
-
-    <script src="js/auth.js"></script>
-    <script src="js/config.js"></script>
+    <script src="/dist/js/auth.js"></script>
+    <script src="/dist/js/config.js"></script>
 </body>
 
 </html>

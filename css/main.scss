@@ -149,7 +149,7 @@
      .account-sec {
        ul {
          display: flex;
-         justify-content: end;
+         justify-content: flex-end;
          // padding:2em ;
  
          li {
@@ -251,8 +251,16 @@
     display: flex!important;
     justify-content: space-between!important;
   }
- }
- @media only screen and(min-width: 1080px) {
+  footer{
+    width: 100%;
+  }
+  .private-chat{
+    margin-top: 1.5em!important;
+    background: var(--black-color)!important;
+  }
+}
+
+@media only screen and(min-width: 1080px) {
   .user-det {
     background: var(--accent-color);
     display: flex!important;
@@ -395,6 +403,13 @@
    .footer-cta .ft{
     display: flex!important;
     justify-content: space-between!important;
+  }
+  footer{
+    //width: 100%;
+  }
+  .private-chat{
+    margin-top: 1.5em!important;
+    background: var(--black-color)!important;
   }
  }
 
@@ -598,21 +613,18 @@ body {
     background-color: #e2dede2d;
   }
 }
-.auth-class {
-  border: var(--primary-color) solid 0.1em;
-  padding: 0.5em;
-  border-radius: 5em;
 
-  .secondary-nav li {
-    color: white;
-    &:hover {
-      background: var(--primary-color);
-      a {
-        color: white !important;
-      }
-    }
+
+.secondary-nav input {
+   border: .1em var(--primary-color) solid;
+   border-radius: .5em;
+   padding: .6em .6em;
+   font-size: 1em;
+   margin: 0 2em 0 0;
+   cursor: pointer;
+   
   }
-}
+
 
 .fourth-item {
   background: var(--telegram-color);
@@ -904,7 +916,7 @@ input[type='search'],
 .top-products {
   height: 2.5em;
   //margin: 2em 0 2em 0;
-  width: 20%;
+  width: 40%;
 }
 .top-products option {
   background: var(--primary-color);
@@ -1276,9 +1288,9 @@ justify-content: space-between;
   text-align: left;
 }
 
-footer{
-  max-width: 1080px;
-  min-width: 276px;
+.private-chat{
+  
+  background: var(--black-color)!important;
 }
 
 
