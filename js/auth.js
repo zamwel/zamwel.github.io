@@ -64,14 +64,7 @@ $(document).ready(() => {
       createUserWithEmailAndPassword(auth, email, password1)
         .then(credentials => {
           stopload()
-          /*  PopupMessageModel(
-            'Success',
-            `Sign up process completed successfully with with email: ${credentials.user.email} and username: ${username}`,
-            '#009e1a',
-            () => {
-              location.replace('/index.html')
-            }
-          ) */
+
           //add user detials
           var l = {
             username: username,
@@ -81,15 +74,29 @@ $(document).ready(() => {
             balance: 0,
             verified: 'false'
           }
-          addADocument(usersRef, credentials.user.email, l)
+          addADocument(usersRef, credentials.user.email, l, false)
 
           //add history list
-          addADocument(historyRef, credentials.user.email, {
+          addADocument(
+            historyRef,
+            credentials.user.email,
+            {
               uid: credentials.user.uid,
-            history: `You created an account with email: ${
-              credentials.user.email
-            }, name: ${username} at ${Date()}`
-          })
+              history: `You created an account with email: ${
+                credentials.user.email
+              }, name: ${username} at ${Date()}`
+            },
+            false
+          )
+
+          PopupMessageModel(
+            'Success',
+            `Sign up process completed successfully with with email: ${credentials.user.email} and username: ${username}`,
+            '#009e1a',
+            () => {
+              location.replace('/index.html')
+            }
+          )
           register.reset()
         })
         .catch(err => {
