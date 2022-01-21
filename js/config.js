@@ -1092,9 +1092,10 @@ export function loadAPI (amt, topup, items) {
           history: `tried to topup with $${amt} at ${
             JSON.parse(xhr.responseText).data.code
           } waiting for payment to detect`,
-          id: accountid[0].userid,
+          id: userdet[0].userid,
           email: userdet[0].email,
-          cborder: JSON.parse(xhr.responseText).data.code
+          cborder: JSON.parse(xhr.responseText).data.code,
+          resolved: false
         },
         false
       )
