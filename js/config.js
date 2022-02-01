@@ -1089,9 +1089,7 @@ export function loadAPI (amt, topup, items) {
         otherRef,
         JSON.parse(xhr.responseText).data.code,
         {
-          history: `tried to topup with $${amt} at ${
-            JSON.parse(xhr.responseText).data.code
-          } waiting for payment to detect`,
+          history: `tried to topup with $${amt} new Date().toLocaleDateString("en-UK") waiting for payment to detect`,
           id: userdet[0].userid,
           email: userdet[0].email,
           cborder: JSON.parse(xhr.responseText).data.code,
