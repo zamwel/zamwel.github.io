@@ -216,7 +216,7 @@ export function removeuserdetials () {
 export function signout () {
   load()
   addADocument(historyRef, DocId(), {
-    history: `You signed out of your account @ ${Date()}`,
+    history: `You signed out of your account @ ${ new Date().toLocaleDateString('en-UK')}`,
     id: loguser.email
   })
   signOut(auth).then(() => {
@@ -273,7 +273,7 @@ export function buynow (data, index, amt) {
        state: ${data[index].state}\n
        city: ${data[index].city}`
 
-  item = [$('.top-products').val(), stringitems, genorder(8), Date()]
+  item = [$('.top-products').val(), stringitems, genorder(8),  new Date().toLocaleDateString('en-UK')]
 
   if (bal < amt) {
     loadAPI(amt, false, item)
@@ -827,7 +827,7 @@ export function SniffPaymentStatus (code, topup, items) {
               code: code,
               email: userdet[0].email,
               uid: userdet[0].userid,
-              date: Date()
+              date:  new Date().toLocaleDateString('en-UK')
             })
 
             clearInterval(stop)
@@ -844,6 +844,42 @@ export function SniffPaymentStatus (code, topup, items) {
             $('#PaymentModal .process').css('color', '#20272e')
             return
           }
+          
+          if (
+            sniffed.timeline.length === 3 &&
+            sniffed.timeline[2].status
+              .toString()
+              .toLowerCase()
+              .trim() === 'unresolved' &&
+            sniffed.timeline[2].context
+              .toString()
+              .toLowerCase()
+              .trim() === 'overpaid'
+          ) {
+            //hold on to purcahse
+            addADocument(holdonRef, code, {
+              data: items,
+              code: code,
+              email: userdet[0].email,
+              uid: userdet[0].userid,
+              date:  new Date().toLocaleDateString('en-UK')
+            })
+
+            clearInterval(stop)
+            PopupMessageModel(
+              'Payment Warning',
+              `Your payment is unresolved meaning you paid less than the specified amount. Check the remaining balance $(${sniffed
+                .pricing.local.amount -
+                payments.value.local
+                  .amount}) and complete the payment with same crypto wallet address.`,
+              '#fbff00',
+              () => {}
+            )
+            $('#PaymentModal .process').text('Payment Underpaid!')
+            $('#PaymentModal .process').css('color', '#20272e')
+            return
+          }
+          
           if (sniffedlen === 1) {
             //new payment detected
             $('#PaymentModal .process').text('Payment Initiated!')
