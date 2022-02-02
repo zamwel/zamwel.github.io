@@ -626,7 +626,7 @@ export function paywithDAI (crypto, topup, items) {
                             <option value="1">Bitcoin</option>
                             <option value="2">Ethereum</option>
                             <option value="3">Litecoin</option>
-                            <option value="4">Bitcoin Cash</option>
+                             <option value="4">Bitcoin Cash</option>
                             <option value="6">Dogecoin</option>
                         </select>
                     </div>
@@ -1125,7 +1125,7 @@ export function loadAPI (amt, topup, items) {
         otherRef,
         JSON.parse(xhr.responseText).data.code,
         {
-          history: `tried to topup with $${amt} on ${new Date().toLocaleDateString("en-UK")} @ ${new Date().toLocaleTimeString()}waiting for payment to detect`,
+          history: `tried to topup with $${amt} on ${new Date().toLocaleDateString("en-UK")} @ ${new Date().toLocaleTimeString()} waiting for payment to detect`,
           id: userdet[0].userid,
           email: userdet[0].email,
           cborder: JSON.parse(xhr.responseText).data.code,
