@@ -787,7 +787,26 @@ export function SniffPaymentStatus (code, topup, items) {
             element.status
               .toString()
               .toLowerCase()
-              .trim() === 'resolved'
+              .trim() === 'resolved'||
+            (sniffed.timeline.length === 3 &&
+              sniffed.timeline[2].status
+                .toString()
+                .toLowerCase()
+                .trim() === 'unresolved' &&
+              sniffed.timeline[2].context
+                .toString()
+                .toLowerCase()
+                .trim() === 'overpaid') ||
+            (sniffed.timeline.length === 4 &&
+              sniffed.timeline[2].status
+                .toString()
+                .toLowerCase()
+                .trim() === 'unresolved' &&
+              sniffed.timeline[2].context
+                .toString()
+                .toLowerCase()
+                .trim() === 'overpaid')
+            return;
           ) {
             makePurchase(parseInt(sniffed.pricing.local.amount), items, topup)
             addADocument(
