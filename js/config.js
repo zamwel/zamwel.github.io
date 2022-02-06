@@ -806,7 +806,7 @@ export function SniffPaymentStatus (code, topup, items) {
                 .toString()
                 .toLowerCase()
                 .trim() === 'overpaid')
-            return;
+           
           ) {
             makePurchase(parseInt(sniffed.pricing.local.amount), items, topup)
             addADocument(
