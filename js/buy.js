@@ -8,7 +8,7 @@ import {
   usersRef,
   OpenLookupCC,
   auth
-} from '/js/config.js'
+} from './config.js'
 import { onAuthStateChanged } from 'https://www.gstatic.com/firebasejs/9.6.3/firebase-auth.js'
 import { query, where, onSnapshot, doc } from 'https://www.gstatic.com/firebasejs/9.6.3/firebase-firestore.js'
 
