@@ -71,10 +71,11 @@ export var user,
   signedin = false,
   loguser,
   queries,
-  userdet = []
+  userdet = [],
+  deduction = false;
 //Authetication listener
 
-export function setIndex (index, data, amt) {
+export function setIndex(index, data, amt) {
   this.index = index
   this.data = data
   this.amt = amt
@@ -98,7 +99,7 @@ onAuthStateChanged(auth, user => {
 //get userdetails before hand
 
 //get collection documents
-export function getACollection (collectionname) {
+export function getACollection(collectionname) {
   getDoc(collectionname)
     .then(snapshot => {
       snapshot.docs.forEach(doc => {
@@ -106,52 +107,53 @@ export function getACollection (collectionname) {
       })
     })
     .catch(err => {
-      PopupMessageModel('Error', err, '#b60b0b', () => {})
+      PopupMessageModel('Error', err, '#b60b0b', () => { })
     })
 }
 
-export function getAllSnapshotCollection (collectionname) {
+export function getAllSnapshotCollection(collectionname) {
   onSnapshot(collectionname, snapshot => {
     snapshot.docs.forEach(doc => {
       users.push({ ...doc.data(), uid: doc.id })
     })
   }).catch(err => {
-    PopupMessageModel('Error', err, '#b60b0b', () => {})
+    PopupMessageModel('Error', err, '#b60b0b', () => { })
   })
 }
 
 //get a document
 
 //add docments
-export function addADocument (collectionname, id, object, condition) {
+export function addADocument(collectionname, id, object, condition) {
   load()
   setDoc(doc(collectionname, id), object)
     .then(() => {
       stopload()
       if (condition) {
-        PopupMessageModel(
+        /* PopupMessageModel(
           'Success',
           'Document successfully added',
           '#009e1a',
-          () => {}
-        )
+          () => { },
+          false
+        ) */
       }
     })
     .catch(err => {
       stopload()
-      PopupMessageModel('Error', err, '#b60b0b', () => {})
+      PopupMessageModel('Error', err, '#b60b0b', () => { })
     })
 }
 
 //custoem alert dialogs
-export function load () {
+export function load() {
   loading.style.display = 'block'
 }
-export function stopload () {
+export function stopload() {
   loading.style.display = 'none'
 }
 
-export function PopupMessageModel (title, msg, color, callback) {
+export function PopupMessageModel(title, msg, color, callback) {
   message.style.display = 'block'
 
   $('#myMessageModal .modal-exit').click(() => {
@@ -177,7 +179,7 @@ export function PopupMessageModel (title, msg, color, callback) {
     }
   }
 }
-export function OpenLookupCC (title, msg) {
+export function OpenLookupCC(title, msg) {
   lookupmodal.style.display = 'block'
 
   $('#LookupModal .modal-exit').click(() => {
@@ -195,7 +197,7 @@ export function OpenLookupCC (title, msg) {
     }
   }
 }
-export function PopupConfirmModel (title, message, callback) {
+export function PopupConfirmModel(title, message, callback) {
   var proceed = confirm(message)
   if (proceed) {
     callback()
@@ -204,7 +206,7 @@ export function PopupConfirmModel (title, message, callback) {
   }
 }
 
-export function removeuserdetials () {
+export function removeuserdetials() {
   localStorage.setItem('login', 'false')
   localStorage.removeItem('email')
   localStorage.removeItem('uid')
@@ -213,10 +215,10 @@ export function removeuserdetials () {
   localStorage.removeItem('verified')
   localStorage.removeItem('password')
 }
-export function signout () {
+export function signout() {
   load()
   addADocument(historyRef, DocId(), {
-    history: `You signed out of your account @ ${ new Date().toLocaleDateString('en-UK')}`,
+    history: `You signed out of your account @ ${Date()}`,
     id: loguser.email
   })
   signOut(auth).then(() => {
@@ -232,7 +234,7 @@ $('#auth-div-on #auth-id').click(e => {
   logout()
 })
 
-export function logout () {
+export function logout() {
   PopupConfirmModel(
     'Logout',
     'Do you really want to logout from this account?',
@@ -240,21 +242,21 @@ export function logout () {
   )
 }
 
-export function signinuser () {
+export function signinuser() {
   hidepopup
   location.replace('/auth.html')
 }
 
-export function genstr (len) {
+export function genstr(len) {
   var p = '0123456789'
   return [...Array(len)].reduce(a => a + p[~~(Math.random() * p.length)], '')
 }
-export function genorder (len) {
+export function genorder(len) {
   var p = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
   return [...Array(len)].reduce(a => a + p[~~(Math.random() * p.length)], '')
 }
 
-export function buynow (data, index, amt) {
+export function buynow(data, index, amt) {
   modal.style.display = 'none'
   bal = parseInt(userdet[0].balance)
   stringitems = `network: ${data[index].network}\n
@@ -273,26 +275,28 @@ export function buynow (data, index, amt) {
        state: ${data[index].state}\n
        city: ${data[index].city}`
 
-  item = [$('.top-products').val(), stringitems, genorder(8),  new Date().toLocaleDateString('en-UK')]
+  item = [$('.top-products').val(), stringitems, genorder(8), Date(), amt]
 
   if (bal < amt) {
+    deduction = false;
     loadAPI(amt, false, item)
     return
   } else {
     tba = bal - amt
+    deduction = true;
     makePurchase(tba, item, false)
     return
   }
 }
 
-export function hidepopup () {
+export function hidepopup() {
   modal.style.display = 'none'
 }
 
-export function closepayment () {
+export function closepayment() {
   paymodal.style.display = 'none'
 }
-export function OpenPaymentModal (data, topup, items) {
+export function OpenPaymentModal(data, topup, items) {
   paymodal.style.display = 'block'
   var created = Date.parse(data.created_at)
   var ending = Date.parse(data.expires_at)
@@ -316,7 +320,7 @@ export function OpenPaymentModal (data, topup, items) {
   paywithBTC(data, topup, items)
 }
 
-export function paywithBTC (crypto, topup, items) {
+export function paywithBTC(crypto, topup, items) {
   SniffPaymentStatus(crypto.code, topup, items)
   var element = `
                     <a class="logo" href="#">Unicc<span class="logo-style">Tools</span></a>
@@ -389,7 +393,7 @@ export function paywithBTC (crypto, topup, items) {
     }
   })
 }
-export function paywithETC (crypto, topup, items) {
+export function paywithETC(crypto, topup, items) {
   SniffPaymentStatus(crypto.code, topup, items)
   var element = `
                     <a class="logo" href="#">Unicc<span class="logo-style">Tools</span></a>
@@ -463,7 +467,7 @@ export function paywithETC (crypto, topup, items) {
     }
   })
 }
-export function paywithLTC (crypto, topup, items) {
+export function paywithLTC(crypto, topup, items) {
   SniffPaymentStatus(crypto.code, topup, items)
   var element = `
                     <a class="logo" href="#">Unicc<span class="logo-style">Tools</span></a>
@@ -536,7 +540,7 @@ export function paywithLTC (crypto, topup, items) {
     }
   })
 }
-export function paywithBCH (crypto, topup, items) {
+export function paywithBCH(crypto, topup, items) {
   SniffPaymentStatus(crypto.code, topup, items)
   var element = `
                     <a class="logo" href="#">Unicc<span class="logo-style">Tools</span></a>
@@ -609,7 +613,7 @@ export function paywithBCH (crypto, topup, items) {
     }
   })
 }
-export function paywithDAI (crypto, topup, items) {
+export function paywithDAI(crypto, topup, items) {
   SniffPaymentStatus(crypto.code, topup, items)
   var element = `
                     <a class="logo" href="#">Unicc<span class="logo-style">Tools</span></a>
@@ -626,7 +630,7 @@ export function paywithDAI (crypto, topup, items) {
                             <option value="1">Bitcoin</option>
                             <option value="2">Ethereum</option>
                             <option value="3">Litecoin</option>
-                             <option value="4">Bitcoin Cash</option>
+                            <option value="4">Bitcoin Cash</option>
                             <option value="6">Dogecoin</option>
                         </select>
                     </div>
@@ -683,7 +687,7 @@ export function paywithDAI (crypto, topup, items) {
     }
   })
 }
-export function paywithDOG (crypto, topup, items) {
+export function paywithDOG(crypto, topup, items) {
   SniffPaymentStatus(crypto.code, topup, items)
   var element = `
                     <a class="logo" href="#">Unicc<span class="logo-style">Tools</span></a>
@@ -757,7 +761,7 @@ export function paywithDOG (crypto, topup, items) {
     }
   })
 }
-export function SniffPaymentStatus (code, topup, items) {
+export function SniffPaymentStatus(code, topup, items) {
   $('#PaymentModal .process').text('Initiate a Payment now!')
   $('#PaymentModal .process').css('color', '#b60b0b')
   let stop = setInterval(() => {
@@ -777,36 +781,18 @@ export function SniffPaymentStatus (code, topup, items) {
 
         console.log(sniffed.timeline.length)
         var sniffedlen = sniffed.timeline.length
-        sniffed.timeline.forEach(element => {
-          console.log(element.status)
+
+        for (var i = 0; i < sniffed.timeline.length; i++) {
+          console.log(sniffed.timeline[i].status)
           if (
-            element.status
+            sniffed.timeline[i].status
               .toString()
               .toLowerCase()
               .trim() === 'completed' ||
-            element.status
+            sniffed.timeline[i].status
               .toString()
               .toLowerCase()
-              .trim() === 'resolved'||
-            (sniffed.timeline.length === 3 &&
-              sniffed.timeline[2].status
-                .toString()
-                .toLowerCase()
-                .trim() === 'unresolved' &&
-              sniffed.timeline[2].context
-                .toString()
-                .toLowerCase()
-                .trim() === 'overpaid') ||
-            (sniffed.timeline.length === 4 &&
-              sniffed.timeline[2].status
-                .toString()
-                .toLowerCase()
-                .trim() === 'unresolved' &&
-              sniffed.timeline[2].context
-                .toString()
-                .toLowerCase()
-                .trim() === 'overpaid')
-           
+              .trim() === 'resolved'
           ) {
             makePurchase(parseInt(sniffed.pricing.local.amount), items, topup)
             addADocument(
@@ -827,7 +813,71 @@ export function SniffPaymentStatus (code, topup, items) {
             )
             $('#PaymentModal .process').text('Payment completed')
             $('#PaymentModal .process').css('color', '#009e1a')
-            return
+            break
+          }
+          if (
+            sniffed.timeline.length === 3 &&
+            sniffed.timeline[2].status
+              .toString()
+              .toLowerCase()
+              .trim() === 'unresolved' &&
+            sniffed.timeline[2].context
+              .toString()
+              .toLowerCase()
+              .trim() === 'overpaid'
+          ) {
+            makePurchase(parseInt(sniffed.pricing.local.amount), items, topup)
+            addADocument(
+              historyRef,
+              DocId(),
+              {
+                id: userdet[0].email,
+                history: `Successfully paied an amount of $${sniffed.pricing.local.amount} into your account.`
+              },
+              true
+            )
+            clearInterval(stop)
+            PopupMessageModel(
+              'Successful Payment',
+              'You have successfully completed the payment process.',
+              '#009e1a',
+              closepayment
+            )
+            $('#PaymentModal .process').text('Payment completed')
+            $('#PaymentModal .process').css('color', '#009e1a')
+            break
+          }
+          if (
+            sniffed.timeline.length === 4 &&
+            sniffed.timeline[2].status
+              .toString()
+              .toLowerCase()
+              .trim() === 'unresolved' &&
+            sniffed.timeline[2].context
+              .toString()
+              .toLowerCase()
+              .trim() === 'overpaid'
+          ) {
+            makePurchase(parseInt(sniffed.pricing.local.amount), items, topup)
+            addADocument(
+              historyRef,
+              DocId(),
+              {
+                id: userdet[0].email,
+                history: `Successfully paied an amount of $${sniffed.pricing.local.amount} into your account.`
+              },
+              true
+            )
+            clearInterval(stop)
+            PopupMessageModel(
+              'Successful Payment',
+              'You have successfully completed the payment process.',
+              '#009e1a',
+              closepayment
+            )
+            $('#PaymentModal .process').text('Payment completed')
+            $('#PaymentModal .process').css('color', '#009e1a')
+            break
           }
           if (
             sniffed.timeline.length === 3 &&
@@ -846,7 +896,7 @@ export function SniffPaymentStatus (code, topup, items) {
               code: code,
               email: userdet[0].email,
               uid: userdet[0].userid,
-              date:  new Date().toLocaleDateString('en-UK')
+              date: Date()
             })
 
             clearInterval(stop)
@@ -854,60 +904,24 @@ export function SniffPaymentStatus (code, topup, items) {
               'Payment Warning',
               `Your payment is unresolved meaning you paid less than the specified amount. Check the remaining balance $(${sniffed
                 .pricing.local.amount -
-                payments.value.local
-                  .amount}) and complete the payment with same crypto wallet address.`,
+              payments.value.local
+                .amount}) and complete the payment with same crypto wallet address.`,
               '#fbff00',
-              () => {}
+              () => { }
             )
             $('#PaymentModal .process').text('Payment Underpaid!')
             $('#PaymentModal .process').css('color', '#20272e')
-            return
+            break
           }
-          
-          if (
-            sniffed.timeline.length === 3 &&
-            sniffed.timeline[2].status
-              .toString()
-              .toLowerCase()
-              .trim() === 'unresolved' &&
-            sniffed.timeline[2].context
-              .toString()
-              .toLowerCase()
-              .trim() === 'overpaid'
-          ) {
-            //hold on to purcahse
-            addADocument(holdonRef, code, {
-              data: items,
-              code: code,
-              email: userdet[0].email,
-              uid: userdet[0].userid,
-              date:  new Date().toLocaleDateString('en-UK')
-            })
-
-            clearInterval(stop)
-            PopupMessageModel(
-              'Payment Warning',
-              `Your payment is unresolved meaning you paid less than the specified amount. Check the remaining balance $(${sniffed
-                .pricing.local.amount -
-                payments.value.local
-                  .amount}) and complete the payment with same crypto wallet address.`,
-              '#fbff00',
-              () => {}
-            )
-            $('#PaymentModal .process').text('Payment Underpaid!')
-            $('#PaymentModal .process').css('color', '#20272e')
-            return
-          }
-          
           if (sniffedlen === 1) {
             //new payment detected
             $('#PaymentModal .process').text('Payment Initiated!')
             $('#PaymentModal .process').css('color', '#1d0d0d')
-            return
+            break
           }
           if (
             sniffedlen === 2 &&
-            element.status
+            sniffed.timeline[i].status
               .toString()
               .toLowerCase()
               .trim() !== 'expired'
@@ -917,11 +931,11 @@ export function SniffPaymentStatus (code, topup, items) {
               'Pending: Waiting for confirmation'
             )
             $('#PaymentModal .process').css('color', '#009e1a')
-            return
+            break
           }
 
           if (
-            element.status
+            sniffed.timeline[i].status
               .toString()
               .toLowerCase()
               .trim() === 'expired'
@@ -931,8 +945,9 @@ export function SniffPaymentStatus (code, topup, items) {
               'Payment Period Expires, Try again'
             )
             $('#PaymentModal .process').css('color', '#b60b0b')
+            break
           }
-        })
+        }
       }
     }
     xhr.send(data)
@@ -952,7 +967,7 @@ $('.telegram-chat').click(() => {
   }
 }, 100) */
 
-function AddNewNav (user) {
+function AddNewNav(user) {
   let a = `<!-- Primary navigation menu -->
   <input id="close" class="close" type="button" value="X">
 
@@ -992,7 +1007,7 @@ function AddNewNav (user) {
   }
   authentication()
 }
-export function closeSlide () {
+export function closeSlide() {
   document.querySelector('#close').addEventListener('click', e => {
     e.preventDefault()
     $('.menu-slide').css('display', 'none')
@@ -1004,7 +1019,7 @@ $(document).ready(() => {
   }
 })
 
-function authentication () {
+function authentication() {
   var authid = document.getElementById('auth-id')
   if (authid !== null) {
     authid.addEventListener('click', e => {
@@ -1021,8 +1036,10 @@ function authentication () {
   }
 }
 
-export function makePurchase (bal, item, tp) {
-  if (tp === true) {
+export function makePurchase(bal, item, tp) {
+  console.log('make purchase: ', tp)
+  if (tp) {
+    console.log('can make purchase now: ', tp)
     const docref = doc(usersRef, userdet[0].email)
     updateDoc(docref, {
       balance: bal + parseInt(userdet[0].balance)
@@ -1058,10 +1075,15 @@ export function makePurchase (bal, item, tp) {
           },
           false
         )
-        PopupMessageModel('PURCHASING ERROR', e, '#b60b0b', () => {})
+        PopupMessageModel('PURCHASING ERROR', e, '#b60b0b', () => { })
       })
-    return
-  } else {
+    return true
+  }
+
+
+  else {
+
+    console.log('can make purchase now 2: ', tp)
     let m = {
       product: item[0],
       data: item[1],
@@ -1079,18 +1101,18 @@ export function makePurchase (bal, item, tp) {
             id: userdet[0].email,
             history: `Successfully purchased a(an) ${item[0]} for $${bal} with order# ${item[2]} at ${item[3]}`
           },
-          true
+          false
         )
-
+        console.log('deduct? ', deduction)
         const docref = doc(usersRef, userdet[0].email)
         updateDoc(docref, {
-          balance: bal
+          balance: !deduction ? parseInt(userdet[0].balance) : bal
         }).then(function (val) {
           PopupMessageModel(
             'SUCCESSFULL PURCHASE',
             'You have successfully purchased item of order ' +
-              item[2] +
-              '. Check your account pannel for your purchase details.',
+            item[2] +
+            '. Check your account pannel for your purchase details.',
             '#009e1a',
             () => {
               location.reload()
@@ -1112,12 +1134,53 @@ export function makePurchase (bal, item, tp) {
           },
           false
         )
-        PopupMessageModel('PURCHASING ERROR', e, '#b60b0b', () => {})
+        PopupMessageModel('PURCHASING ERROR', e, '#b60b0b', () => { })
       })
+    return
   }
+
+  /* else  {
+    console.log('peter: ', item[4], ' paul: ', bal)
+    let m = {
+      product: item[0],
+      data: item[1],
+      order: item[2],
+      datetime: item[3],
+      id: userdet[0].email
+    }
+
+    setDoc(doc(purchaseRef, genstr(15)), m)
+      .then(function (val) {
+        addADocument(
+          historyRef,
+          DocId(),
+          {
+            id: userdet[0].email,
+            history: `Successfully purchased a(an) ${item[0]} for $${bal} with order# ${item[2]} at ${item[3]}`
+          },
+          true
+        )
+
+
+
+      })
+      .catch(e => {
+        addADocument(
+          historyRef,
+          DocId(),
+          {
+            id: userdet[0].email,
+            history: `Order ${item[2]} was not successfull at ${item[3]}`
+          },
+          false
+        )
+        PopupMessageModel('PURCHASING ERROR', e, '#b60b0b', () => { })
+      })
+      return
+  } */
 }
 
-export function loadAPI (amt, topup, items) {
+export function loadAPI(amt, topup, items) {
   console.log('is topup action?:', topup)
 
   var email = localStorage.getItem('email')
@@ -1176,6 +1239,6 @@ export function loadAPI (amt, topup, items) {
   xhr.send(data)
 }
 
-export function DocId () {
+export function DocId() {
   return Date.parse(Date()).toString()
 }
