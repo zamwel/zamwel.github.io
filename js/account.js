@@ -7,8 +7,8 @@ import {
   addADocument,
   genstr,
   historyRef,
-  purchaseRef
-} from '/js/config.js'
+  purchaseRef, genorder
+} from './config.js'
 
 import { onAuthStateChanged, getAuth } from 'https://www.gstatic.com/firebasejs/9.6.3/firebase-auth.js'
 import { query, where, onSnapshot, orderBy, limit } from 'https://www.gstatic.com/firebasejs/9.6.3/firebase-firestore.js'
@@ -45,7 +45,7 @@ $(document).ready(() => {
     }
 
     console.log('User amount entered: ', value)
-    openloadAPI(value, true)
+    openloadAPI(value, true, [])
   })
 
   $('#AmountModal .modal-cancel').click(() => {
@@ -64,8 +64,8 @@ function closeamount () {
 
 function openloadAPI (amount, topup) {
   closeamount()
-  
-  loadAPI(amount, topup)
+ var items = ['', '', genorder(8), Date()]
+  loadAPI(amount, topup, items)
 }
 
 function getAUserCollection (collectionname, args1, args2) {
