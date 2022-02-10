@@ -7,7 +7,7 @@ import {
   addADocument,
   auth,
   db
-} from '/js/config.js'
+} from './config.js'
 
 import {
   getAuth,
